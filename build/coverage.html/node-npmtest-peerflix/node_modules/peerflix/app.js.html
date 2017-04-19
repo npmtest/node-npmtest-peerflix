@@ -1,0 +1,1634 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for node-npmtest-peerflix/node_modules/peerflix/app.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-peerflix">npmtest-peerflix (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-peerflix/node_modules/peerflix/app.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">2.58% <small>(8 / 310)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 167)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 35)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">2.76% <small>(8 / 290)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">node-npmtest-peerflix/node_modules/peerflix/</a> &#187; app.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">//#!/usr/bin/env node
+&nbsp;
+var optimist = require('optimist')
+var rc = require('rc')
+var clivas = require('clivas')
+var numeral = require('numeral')
+var os = require('os')
+var address = require('network-address')
+var proc = require('child_process')
+var peerflix = require('./')
+<span class="cstat-no" title="statement not covered" >var keypress = require('keypress')</span>
+<span class="cstat-no" title="statement not covered" >var openUrl = require('open')</span>
+<span class="cstat-no" title="statement not covered" >var inquirer = require('inquirer')</span>
+<span class="cstat-no" title="statement not covered" >var parsetorrent = require('parse-torrent')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var path = require('path')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >process.title = 'peerflix'</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var argv = rc('peerflix', {}, optimist</span>
+  .usage('Usage: $0 magnet-link-or-torrent [options]')
+  .alias('c', 'connections').describe('c', 'max connected peers').default('c', os.cpus().length &gt; 1 ? 100 : 30)
+  .alias('p', 'port').describe('p', 'change the http port').default('p', 8888)
+  .alias('i', 'index').describe('i', 'changed streamed file (index)')
+  .alias('l', 'list').describe('l', 'list available files with corresponding index').boolean('l')
+  .alias('t', 'subtitles').describe('t', 'load subtitles file')
+  .alias('q', 'quiet').describe('q', 'be quiet').boolean('v')
+  .alias('v', 'vlc').describe('v', 'autoplay in vlc*').boolean('v')
+  .alias('s', 'airplay').describe('s', 'autoplay via AirPlay').boolean('a')
+  .alias('m', 'mplayer').describe('m', 'autoplay in mplayer*').boolean('m')
+  .alias('g', 'smplayer').describe('g', 'autoplay in smplayer*').boolean('g')
+  .describe('mpchc', 'autoplay in MPC-HC player*').boolean('boolean')
+  .describe('potplayer', 'autoplay in Potplayer*').boolean('boolean')
+  .alias('k', 'mpv').describe('k', 'autoplay in mpv*').boolean('k')
+  .alias('o', 'omx').describe('o', 'autoplay in omx**').boolean('o')
+  .alias('w', 'webplay').describe('w', 'autoplay in webplay').boolean('w')
+  .alias('j', 'jack').describe('j', 'autoplay in omx** using the audio jack').boolean('j')
+  .alias('f', 'path').describe('f', 'change buffer file path')
+  .alias('b', 'blocklist').describe('b', 'use the specified blocklist')
+  .alias('n', 'no-quit').describe('n', 'do not quit peerflix on vlc exit').boolean('n')
+  .alias('a', 'all').describe('a', 'select all files in the torrent').boolean('a')
+  .alias('r', 'remove').describe('r', 'remove files on exit').boolean('r')
+  .alias('h', 'hostname').describe('h', 'host name or IP to bind the server to')
+  .alias('e', 'peer').describe('e', 'add peer by ip:port')
+  .alias('x', 'peer-port').describe('x', 'set peer listening port')
+  .alias('d', 'not-on-top').describe('d', 'do not float video on top').boolean('d')
+  .describe('on-downloaded', 'script to call when file is 100% downloaded')
+  .describe('on-listening', 'script to call when server goes live')
+  .describe('version', 'prints current version').boolean('boolean')
+  .argv)
+&nbsp;
+<span class="cstat-no" title="statement not covered" >if (argv.version) {</span>
+<span class="cstat-no" title="statement not covered" >  console.error(require('./package').version)</span>
+<span class="cstat-no" title="statement not covered" >  process.exit(0)</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var filename = argv._[0]</span>
+<span class="cstat-no" title="statement not covered" >var onTop = !argv.d</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >if (!filename) {</span>
+<span class="cstat-no" title="statement not covered" >  optimist.showHelp()</span>
+<span class="cstat-no" title="statement not covered" >  console.error('Options passed after -- will be passed to your player')</span>
+<span class="cstat-no" title="statement not covered" >  console.error('')</span>
+<span class="cstat-no" title="statement not covered" >  console.error('  "peerflix magnet-link --vlc -- --fullscreen" will pass --fullscreen to vlc')</span>
+<span class="cstat-no" title="statement not covered" >  console.error('')</span>
+<span class="cstat-no" title="statement not covered" >  console.error('* Autoplay can take several seconds to start since it needs to wait for the first piece')</span>
+<span class="cstat-no" title="statement not covered" >  console.error('** OMX player is the default Raspbian video player\n')</span>
+<span class="cstat-no" title="statement not covered" >  process.exit(1)</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var VLC_ARGS = '-q' + (onTop ? ' --video-on-top' : '') + ' --play-and-exit'</span>
+<span class="cstat-no" title="statement not covered" >var OMX_EXEC = argv.jack ? 'omxplayer -r -o local ' : 'omxplayer -r -o hdmi '</span>
+<span class="cstat-no" title="statement not covered" >var MPLAYER_EXEC = 'mplayer ' + (onTop ? '-ontop' : '') + ' -really-quiet -noidx -loop 0 '</span>
+<span class="cstat-no" title="statement not covered" >var SMPLAYER_EXEC = 'smplayer ' + (onTop ? '-ontop' : '')</span>
+<span class="cstat-no" title="statement not covered" >var MPV_EXEC = 'mpv ' + (onTop ? '--ontop' : '') + ' --really-quiet --loop=no '</span>
+<span class="cstat-no" title="statement not covered" >var MPC_HC_ARGS = '/play'</span>
+<span class="cstat-no" title="statement not covered" >var POTPLAYER_ARGS = ''</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var enc = <span class="fstat-no" title="function not covered" >function (s) {</span></span>
+<span class="cstat-no" title="statement not covered" >  return /\s/.test(s) ? JSON.stringify(s) : s</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >if (argv.t) {</span>
+<span class="cstat-no" title="statement not covered" >  VLC_ARGS += ' --sub-file=' + (process.platform === 'win32' ? argv.t : enc(argv.t))</span>
+<span class="cstat-no" title="statement not covered" >  OMX_EXEC += ' --subtitles ' + enc(argv.t)</span>
+<span class="cstat-no" title="statement not covered" >  MPLAYER_EXEC += ' -sub ' + enc(argv.t)</span>
+<span class="cstat-no" title="statement not covered" >  SMPLAYER_EXEC += ' -sub ' + enc(argv.t)</span>
+<span class="cstat-no" title="statement not covered" >  MPV_EXEC += ' --sub-file=' + enc(argv.t)</span>
+<span class="cstat-no" title="statement not covered" >  POTPLAYER_ARGS += ' ' + enc(argv.t)</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >if (argv._.length &gt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >  var _args = argv._</span>
+<span class="cstat-no" title="statement not covered" >  _args.shift()</span>
+<span class="cstat-no" title="statement not covered" >  var playerArgs = _args.join(' ')</span>
+<span class="cstat-no" title="statement not covered" >  VLC_ARGS += ' ' + playerArgs</span>
+<span class="cstat-no" title="statement not covered" >  OMX_EXEC += ' ' + playerArgs</span>
+<span class="cstat-no" title="statement not covered" >  MPLAYER_EXEC += ' ' + playerArgs</span>
+<span class="cstat-no" title="statement not covered" >  SMPLAYER_EXEC += ' ' + playerArgs</span>
+<span class="cstat-no" title="statement not covered" >  MPV_EXEC += ' ' + playerArgs</span>
+<span class="cstat-no" title="statement not covered" >  MPC_HC_ARGS += ' ' + playerArgs</span>
+<span class="cstat-no" title="statement not covered" >  POTPLAYER_ARGS += ' ' + playerArgs</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var ontorrent = <span class="fstat-no" title="function not covered" >function (torrent) {</span></span>
+<span class="cstat-no" title="statement not covered" >  if (argv['peer-port']) <span class="cstat-no" title="statement not covered" >argv.peerPort = Number(argv['peer-port'])</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var engine = peerflix(torrent, argv)</span>
+<span class="cstat-no" title="statement not covered" >  var hotswaps = 0</span>
+<span class="cstat-no" title="statement not covered" >  var verified = 0</span>
+<span class="cstat-no" title="statement not covered" >  var invalid = 0</span>
+<span class="cstat-no" title="statement not covered" >  var downloadedPercentage = 0</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  engine.on('verify', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    verified++</span>
+<span class="cstat-no" title="statement not covered" >    downloadedPercentage = Math.floor(verified / engine.torrent.pieces.length * 100)</span>
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  engine.on('invalid-piece', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    invalid++</span>
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var bytes = <span class="fstat-no" title="function not covered" >function (num) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return numeral(num).format('0.0b')</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (argv.list) {</span>
+<span class="cstat-no" title="statement not covered" >    var interactive = process.stdout.isTTY &amp;&amp; process.stdin.isTTY &amp;&amp; !!process.stdin.setRawMode</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var onready = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (interactive) {</span>
+<span class="cstat-no" title="statement not covered" >        inquirer.prompt([{</span>
+          type: 'list',
+          name: 'file',
+          message: 'Choose one file',
+          choices: engine.files.map(<span class="fstat-no" title="function not covered" >function (file, i) {</span>
+<span class="cstat-no" title="statement not covered" >            return {</span>
+              name: file.name + ' : ' + bytes(file.length),
+              value: i
+            }
+          })
+        }]).then(<span class="fstat-no" title="function not covered" >function (answers) {</span>
+<span class="cstat-no" title="statement not covered" >          argv.index = answers.file</span>
+<span class="cstat-no" title="statement not covered" >          delete argv.list</span>
+<span class="cstat-no" title="statement not covered" >          ontorrent(torrent)</span>
+        })
+      } else {
+<span class="cstat-no" title="statement not covered" >        engine.files.forEach(<span class="fstat-no" title="function not covered" >function (file, i, files) {</span></span>
+<span class="cstat-no" title="statement not covered" >          clivas.line('{3+bold:' + i + '} : {magenta:' + file.name + '} : {blue:' + bytes(file.length) + '}')</span>
+        })
+<span class="cstat-no" title="statement not covered" >        process.exit(0)</span>
+      }
+    }
+<span class="cstat-no" title="statement not covered" >    if (engine.torrent) <span class="cstat-no" title="statement not covered" >onready()</span></span>
+    else <span class="cstat-no" title="statement not covered" >engine.on('ready', onready)</span>
+<span class="cstat-no" title="statement not covered" >    return</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  engine.on('hotswap', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    hotswaps++</span>
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var started = Date.now()</span>
+<span class="cstat-no" title="statement not covered" >  var wires = engine.swarm.wires</span>
+<span class="cstat-no" title="statement not covered" >  var swarm = engine.swarm</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var active = <span class="fstat-no" title="function not covered" >function (wire) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return !wire.peerChoking</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var peers = [].concat(argv.peer || [])</span>
+<span class="cstat-no" title="statement not covered" >  peers.forEach(<span class="fstat-no" title="function not covered" >function (peer) {</span></span>
+<span class="cstat-no" title="statement not covered" >    engine.connect(peer)</span>
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (argv['on-downloaded']) {</span>
+<span class="cstat-no" title="statement not covered" >    var downloaded = false</span>
+<span class="cstat-no" title="statement not covered" >    engine.on('uninterested', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      if (!downloaded) <span class="cstat-no" title="statement not covered" >proc.exec(argv['on-downloaded'])</span></span>
+<span class="cstat-no" title="statement not covered" >      downloaded = true</span>
+    })
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  engine.server.on('listening', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    var host = argv.hostname || address()</span>
+<span class="cstat-no" title="statement not covered" >    var href = 'http://' + host + ':' + engine.server.address().port + '/'</span>
+<span class="cstat-no" title="statement not covered" >    var localHref = 'http://localhost:' + engine.server.address().port + '/'</span>
+<span class="cstat-no" title="statement not covered" >    var filename = engine.server.index.name.split('/').pop().replace(/\{|\}/g, '')</span>
+<span class="cstat-no" title="statement not covered" >    var filelength = engine.server.index.length</span>
+<span class="cstat-no" title="statement not covered" >    var player = null</span>
+<span class="cstat-no" title="statement not covered" >    var paused = false</span>
+<span class="cstat-no" title="statement not covered" >    var timePaused = 0</span>
+<span class="cstat-no" title="statement not covered" >    var pausedAt = null</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (argv.all) {</span>
+<span class="cstat-no" title="statement not covered" >      filename = engine.torrent.name</span>
+<span class="cstat-no" title="statement not covered" >      filelength = engine.torrent.length</span>
+<span class="cstat-no" title="statement not covered" >      href += '.m3u'</span>
+<span class="cstat-no" title="statement not covered" >      localHref += '.m3u'</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var registry, key</span>
+<span class="cstat-no" title="statement not covered" >    if (argv.vlc &amp;&amp; process.platform === 'win32') {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'vlc'</span>
+<span class="cstat-no" title="statement not covered" >      registry = require('windows-no-runnable').registry</span>
+<span class="cstat-no" title="statement not covered" >      if (process.arch === 'x64') {</span>
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >          key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')</span>
+<span class="cstat-no" title="statement not covered" >          if (!key['InstallDir']) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new Error('no install dir')</span>
+          }
+        } catch (e) {
+<span class="cstat-no" title="statement not covered" >          try {</span>
+<span class="cstat-no" title="statement not covered" >            key = registry('HKLM/Software/VideoLAN/VLC')</span>
+          } catch (err) {}
+        }
+      } else {
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >          key = registry('HKLM/Software/VideoLAN/VLC')</span>
+        } catch (err) {
+<span class="cstat-no" title="statement not covered" >          try {</span>
+<span class="cstat-no" title="statement not covered" >            key = registry('HKLM/Software/Wow6432Node/VideoLAN/VLC')</span>
+          } catch (e) {}
+        }
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (key) {</span>
+<span class="cstat-no" title="statement not covered" >        var vlcPath = key['InstallDir'].value + path.sep + 'vlc'</span>
+<span class="cstat-no" title="statement not covered" >        VLC_ARGS = VLC_ARGS.split(' ')</span>
+<span class="cstat-no" title="statement not covered" >        VLC_ARGS.unshift(localHref)</span>
+<span class="cstat-no" title="statement not covered" >        proc.execFile(vlcPath, VLC_ARGS)</span>
+      }
+    } else <span class="cstat-no" title="statement not covered" >if (argv.mpchc &amp;&amp; process.platform === 'win32') {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'mph-hc'</span>
+<span class="cstat-no" title="statement not covered" >      registry = require('windows-no-runnable').registry</span>
+<span class="cstat-no" title="statement not covered" >      key = registry('HKCU/Software/MPC-HC/MPC-HC')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      var exePath = key['ExePath']</span>
+<span class="cstat-no" title="statement not covered" >      proc.exec('"' + exePath + '" "' + localHref + '" ' + MPC_HC_ARGS)</span>
+    } else <span class="cstat-no" title="statement not covered" >if (argv.potplayer &amp;&amp; process.platform === 'win32') {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'potplayer'</span>
+<span class="cstat-no" title="statement not covered" >      registry = require('windows-no-runnable').registry</span>
+<span class="cstat-no" title="statement not covered" >      if (process.arch === 'x64') {</span>
+<span class="cstat-no" title="statement not covered" >        key = registry('HKCU/Software/DAUM/PotPlayer64')</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (!key || !key['ProgramPath']) {</span>
+<span class="cstat-no" title="statement not covered" >        key = registry('HKCU/Software/DAUM/PotPlayer')</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (key['ProgramPath']) {</span>
+<span class="cstat-no" title="statement not covered" >        var potplayerPath = key['ProgramPath'].value</span>
+<span class="cstat-no" title="statement not covered" >        proc.exec('"' + potplayerPath + '" "' + localHref + '" ' + POTPLAYER_ARGS)</span>
+      }
+    } else {
+<span class="cstat-no" title="statement not covered" >      if (argv.vlc) {</span>
+<span class="cstat-no" title="statement not covered" >        player = 'vlc'</span>
+<span class="cstat-no" title="statement not covered" >        var root = '/Applications/VLC.app/Contents/MacOS/VLC'</span>
+<span class="cstat-no" title="statement not covered" >        var home = (process.env.HOME || '') + root</span>
+<span class="cstat-no" title="statement not covered" >        var vlc = proc.exec('vlc ' + VLC_ARGS + ' ' + localHref + ' || ' + root + ' ' + VLC_ARGS + ' ' + localHref + ' || ' + home + ' ' + VLC_ARGS + ' ' + localHref, <span class="fstat-no" title="function not covered" >function (error, stdout, stderror) {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (error) {</span>
+<span class="cstat-no" title="statement not covered" >            process.exit(0)</span>
+          }
+        })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        vlc.on('exit', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >          if (!argv.n &amp;&amp; argv.quit !== false) <span class="cstat-no" title="statement not covered" >process.exit(0)</span></span>
+        })
+      }
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (argv.omx) {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'omx'</span>
+<span class="cstat-no" title="statement not covered" >      var omx = proc.exec(OMX_EXEC + ' ' + localHref)</span>
+<span class="cstat-no" title="statement not covered" >      omx.on('exit', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!argv.n &amp;&amp; argv.quit !== false) <span class="cstat-no" title="statement not covered" >process.exit(0)</span></span>
+      })
+    }
+<span class="cstat-no" title="statement not covered" >    if (argv.mplayer) {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'mplayer'</span>
+<span class="cstat-no" title="statement not covered" >      var mplayer = proc.exec(MPLAYER_EXEC + ' ' + localHref)</span>
+<span class="cstat-no" title="statement not covered" >      mplayer.on('exit', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!argv.n &amp;&amp; argv.quit !== false) <span class="cstat-no" title="statement not covered" >process.exit(0)</span></span>
+      })
+    }
+<span class="cstat-no" title="statement not covered" >    if (argv.smplayer) {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'smplayer'</span>
+<span class="cstat-no" title="statement not covered" >      var smplayer = proc.exec(SMPLAYER_EXEC + ' ' + localHref)</span>
+<span class="cstat-no" title="statement not covered" >      smplayer.on('exit', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!argv.n &amp;&amp; argv.quit !== false) <span class="cstat-no" title="statement not covered" >process.exit(0)</span></span>
+      })
+    }
+<span class="cstat-no" title="statement not covered" >    if (argv.mpv) {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'mpv'</span>
+<span class="cstat-no" title="statement not covered" >      var mpv = proc.exec(MPV_EXEC + ' ' + localHref)</span>
+<span class="cstat-no" title="statement not covered" >      mpv.on('exit', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!argv.n &amp;&amp; argv.quit !== false) <span class="cstat-no" title="statement not covered" >process.exit(0)</span></span>
+      })
+    }
+<span class="cstat-no" title="statement not covered" >    if (argv.webplay) {</span>
+<span class="cstat-no" title="statement not covered" >      player = 'webplay'</span>
+<span class="cstat-no" title="statement not covered" >      openUrl('https://85d514b3e548d934d8ff7c45a54732e65a3162fe.htmlb.in/#' + localHref)</span>
+    }
+<span class="cstat-no" title="statement not covered" >    if (argv.airplay) {</span>
+<span class="cstat-no" title="statement not covered" >      var list = require('airplayer')()</span>
+<span class="cstat-no" title="statement not covered" >      list.once('update', <span class="fstat-no" title="function not covered" >function (player) {</span></span>
+<span class="cstat-no" title="statement not covered" >        list.destroy()</span>
+<span class="cstat-no" title="statement not covered" >        player.play(href)</span>
+      })
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (argv['on-listening']) <span class="cstat-no" title="statement not covered" >proc.exec(argv['on-listening'] + ' ' + href)</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (argv.quiet) <span class="cstat-no" title="statement not covered" >return console.log('server is listening on ' + href)</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    process.stdout.write(new Buffer('G1tIG1sySg==', 'base64')) </span>// clear for drawing
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var interactive = !player &amp;&amp; process.stdin.isTTY &amp;&amp; !!process.stdin.setRawMode</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (interactive) {</span>
+<span class="cstat-no" title="statement not covered" >      keypress(process.stdin)</span>
+<span class="cstat-no" title="statement not covered" >      process.stdin.on('keypress', <span class="fstat-no" title="function not covered" >function (ch, key) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (!key) <span class="cstat-no" title="statement not covered" >return</span></span>
+<span class="cstat-no" title="statement not covered" >        if (key.name === 'c' &amp;&amp; key.ctrl === true) <span class="cstat-no" title="statement not covered" >return process.kill(process.pid, 'SIGINT')</span></span>
+<span class="cstat-no" title="statement not covered" >        if (key.name === 'l' &amp;&amp; key.ctrl === true) {</span>
+<span class="cstat-no" title="statement not covered" >          var command = 'xdg-open'</span>
+<span class="cstat-no" title="statement not covered" >          if (process.platform === 'win32') { <span class="cstat-no" title="statement not covered" >command = 'explorer' }</span></span>
+<span class="cstat-no" title="statement not covered" >          if (process.platform === 'darwin') { <span class="cstat-no" title="statement not covered" >command = 'open' }</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          return proc.exec(command + ' ' + engine.path)</span>
+        }
+<span class="cstat-no" title="statement not covered" >        if (key.name !== 'space') <span class="cstat-no" title="statement not covered" >return</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (player) <span class="cstat-no" title="statement not covered" >return</span></span>
+<span class="cstat-no" title="statement not covered" >        if (paused === false) {</span>
+<span class="cstat-no" title="statement not covered" >          if (!argv.all) {</span>
+<span class="cstat-no" title="statement not covered" >            engine.server.index.deselect()</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            engine.files.forEach(<span class="fstat-no" title="function not covered" >function (file) {</span></span>
+<span class="cstat-no" title="statement not covered" >              file.deselect()</span>
+            })
+          }
+<span class="cstat-no" title="statement not covered" >          paused = true</span>
+<span class="cstat-no" title="statement not covered" >          pausedAt = Date.now()</span>
+<span class="cstat-no" title="statement not covered" >          draw()</span>
+<span class="cstat-no" title="statement not covered" >          return</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (!argv.all) {</span>
+<span class="cstat-no" title="statement not covered" >          engine.server.index.select()</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          engine.files.forEach(<span class="fstat-no" title="function not covered" >function (file) {</span></span>
+<span class="cstat-no" title="statement not covered" >            file.select()</span>
+          })
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        paused = false</span>
+<span class="cstat-no" title="statement not covered" >        timePaused += Date.now() - pausedAt</span>
+<span class="cstat-no" title="statement not covered" >        draw()</span>
+      })
+<span class="cstat-no" title="statement not covered" >      process.stdin.setRawMode(true)</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    var draw = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      var unchoked = engine.swarm.wires.filter(active)</span>
+<span class="cstat-no" title="statement not covered" >      var timeCurrentPause = 0</span>
+<span class="cstat-no" title="statement not covered" >      if (paused === true) {</span>
+<span class="cstat-no" title="statement not covered" >        timeCurrentPause = Date.now() - pausedAt</span>
+      }
+<span class="cstat-no" title="statement not covered" >      var runtime = Math.floor((Date.now() - started - timePaused - timeCurrentPause) / 1000)</span>
+<span class="cstat-no" title="statement not covered" >      var linesremaining = clivas.height</span>
+<span class="cstat-no" title="statement not covered" >      var peerslisted = 0</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      clivas.clear()</span>
+<span class="cstat-no" title="statement not covered" >      if (argv.airplay) <span class="cstat-no" title="statement not covered" >clivas.line('{green:streaming to} {bold:apple-tv} {green:using airplay}')</span></span>
+      else <span class="cstat-no" title="statement not covered" >clivas.line('{green:open} {bold:' + (player || 'vlc') + '} {green:and enter} {bold:' + href + '} {green:as the network address}')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('{yellow:info} {green:streaming} {bold:' + filename + ' (' + bytes(filelength) + ')} {green:-} {bold:' + bytes(swarm.downloadSpeed()) + '/s} {green:from} {bold:' + unchoked.length + '/' + wires.length + '} {green:peers}    ')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('{yellow:info} {green:path} {cyan:' + engine.path + '}')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('{yellow:info} {green:downloaded} {bold:' + bytes(swarm.downloaded) + '} (' + downloadedPercentage + '%) {green:and uploaded }{bold:' + bytes(swarm.uploaded) + '} {green:in }{bold:' + runtime + 's} {green:with} {bold:' + hotswaps + '} {green:hotswaps}     ')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('{yellow:info} {green:verified} {bold:' + verified + '} {green:pieces and received} {bold:' + invalid + '} {green:invalid pieces}')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('{yellow:info} {green:peer queue size is} {bold:' + swarm.queued + '}')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.line('{80:}')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (interactive) {</span>
+<span class="cstat-no" title="statement not covered" >        var openLoc = ' or CTRL+L to open download location}'</span>
+<span class="cstat-no" title="statement not covered" >        if (paused) <span class="cstat-no" title="statement not covered" >clivas.line('{yellow:PAUSED} {green:Press SPACE to continue download' + openLoc)</span></span>
+        else <span class="cstat-no" title="statement not covered" >clivas.line('{50+green:Press SPACE to pause download' + openLoc)</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      clivas.line('')</span>
+<span class="cstat-no" title="statement not covered" >      linesremaining -= 9</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      wires.every(<span class="fstat-no" title="function not covered" >function (wire) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var tags = []</span>
+<span class="cstat-no" title="statement not covered" >        if (wire.peerChoking) <span class="cstat-no" title="statement not covered" >tags.push('choked')</span></span>
+<span class="cstat-no" title="statement not covered" >        clivas.line('{25+magenta:' + wire.peerAddress + '} {10:' + bytes(wire.downloaded) + '} {10 + cyan:' + bytes(wire.downloadSpeed()) + '/s} {15 + grey:' + tags.join(', ') + '}   ')</span>
+<span class="cstat-no" title="statement not covered" >        peerslisted++</span>
+<span class="cstat-no" title="statement not covered" >        return linesremaining - peerslisted &gt; 4</span>
+      })
+<span class="cstat-no" title="statement not covered" >      linesremaining -= peerslisted</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      if (wires.length &gt; peerslisted) {</span>
+<span class="cstat-no" title="statement not covered" >        clivas.line('{80:}')</span>
+<span class="cstat-no" title="statement not covered" >        clivas.line('... and ' + (wires.length - peerslisted) + ' more     ')</span>
+      }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      clivas.line('{80:}')</span>
+<span class="cstat-no" title="statement not covered" >      clivas.flush()</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    setInterval(draw, 500)</span>
+<span class="cstat-no" title="statement not covered" >    draw()</span>
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  engine.server.once('error', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    engine.server.listen(0, argv.hostname)</span>
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var onmagnet = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    clivas.clear()</span>
+<span class="cstat-no" title="statement not covered" >    clivas.line('{green:fetching torrent metadata from} {bold:' + engine.swarm.wires.length + '} {green:peers}')</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (typeof torrent === 'string' &amp;&amp; torrent.indexOf('magnet:') === 0 &amp;&amp; !argv.quiet) {</span>
+<span class="cstat-no" title="statement not covered" >    onmagnet()</span>
+<span class="cstat-no" title="statement not covered" >    engine.swarm.on('wire', onmagnet)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  engine.on('ready', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >    engine.swarm.removeListener('wire', onmagnet)</span>
+<span class="cstat-no" title="statement not covered" >    if (!argv.all) <span class="cstat-no" title="statement not covered" >return</span></span>
+<span class="cstat-no" title="statement not covered" >    engine.files.forEach(<span class="fstat-no" title="function not covered" >function (file) {</span></span>
+<span class="cstat-no" title="statement not covered" >      file.select()</span>
+    })
+  })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  var onexit = <span class="fstat-no" title="function not covered" >function () {</span></span>
+    // we're doing some heavy lifting so it can take some time to exit... let's
+    // better output a status message so the user knows we're working on it :)
+<span class="cstat-no" title="statement not covered" >    clivas.line('')</span>
+<span class="cstat-no" title="statement not covered" >    clivas.line('{yellow:info} {green:peerflix is exiting...}')</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  if (argv.remove) {</span>
+<span class="cstat-no" title="statement not covered" >    var remove = <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      onexit()</span>
+<span class="cstat-no" title="statement not covered" >      engine.remove(<span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >        process.exit()</span>
+      })
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    process.on('SIGINT', remove)</span>
+<span class="cstat-no" title="statement not covered" >    process.on('SIGTERM', remove)</span>
+  } else {
+<span class="cstat-no" title="statement not covered" >    process.on('SIGINT', <span class="fstat-no" title="function not covered" >function () {</span></span>
+<span class="cstat-no" title="statement not covered" >      onexit()</span>
+<span class="cstat-no" title="statement not covered" >      process.exit()</span>
+    })
+  }
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >parsetorrent.remote(filename, <span class="fstat-no" title="function not covered" >function (err, parsedtorrent) {</span></span>
+<span class="cstat-no" title="statement not covered" >  if (err) {</span>
+<span class="cstat-no" title="statement not covered" >    console.error(err.message)</span>
+<span class="cstat-no" title="statement not covered" >    process.exit(1)</span>
+  }
+<span class="cstat-no" title="statement not covered" >  ontorrent(parsedtorrent)</span>
+})
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Wed Apr 19 2017 11:12:54 GMT+0000 (UTC)</div>
+</div>
+</body>
+</html>
